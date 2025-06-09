@@ -2,32 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Birth Sky 🌙</title>
+  <title>Your Sky on a Day</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
 </head>
 <body>
   <div class="container">
-    <h1>🌙 What Was in the Sky When You Were Born?</h1>
+    <h1>What was in the sky when you were born?</h1>
 
-    <label for="dob">📅 Date of Birth:</label>
+    <label>Date of birth</label>
     <input type="date" id="dob">
 
-    <label for="location">🌍 Select Location:</label>
-    <select id="location">
-      <option value="31.5,74.3">Lahore, Pakistan</option>
-      <option value="28.6,77.2">Delhi, India</option>
-      <option value="40.7,-74.0">New York, USA</option>
-      <option value="51.5,-0.1">London, UK</option>
-      <option value="35.6,139.6">Tokyo, Japan</option>
-    </select>
+    <label>Search City</label>
+    <div id="map"></div>
 
-    <button id="fetchData">🔎 Show Moon & Weather</button>
+    <div class="coords">
+      <span>Lat: <span id="lat">none</span></span>
+      <span>Lon: <span id="lon">none</span></span>
+    </div>
 
-    <div id="resultCard" class="hidden">
-      <h2>🌕 Moon Phase</h2>
-      <p id="moon"></p>
-      <h2>☀️ Weather on That Day</h2>
-      <p id="weather"></p>
+    <button id="goBtn">Show Moon & Weather</button>
+
+    <div id="result" class="hidden">
+      <img id="moonImg" src="" alt="Moon Phase" />
+      <div class="info">
+        <h2 id="moonPhase"></h2>
+        <p id="weather"></p>
+      </div>
     </div>
   </div>
 
