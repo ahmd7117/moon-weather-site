@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Moon & Weather on Your Birth Date</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <h1>🌙 What was the Moon like when you were born?</h1>
+  <p>Select your date of birth and click on the map!</p>
+  <input type="date" id="datePicker">
+  
+  <div id="map"></div>
+  <p><strong>Lat:</strong> <span id="lat"></span>, <strong>Lon:</strong> <span id="lon"></span></p>
+  <button id="checkBtn">Show Moon & Weather</button>
+
+  <div id="results">
+    <h2>🌕 Moon Phase</h2>
+    <p id="moonPhase">–</p>
+    <h2>🌤️ Weather</h2>
+    <p id="weather">–</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
