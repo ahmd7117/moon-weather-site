@@ -1,42 +1,49 @@
-document.getElementById("fetchData").addEventListener("click", async () => {
-  const date = document.getElementById("dob").value;
-  const location = document.getElementById("location").value.split(",");
-  const lat = location[0];
-  const lon = location[1];
+const map = L.map('map').setView([24.9,67.0], 5);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+let marker;
 
-  if (!date) {
-    alert("Please select a date.");
-    return;
-  }
+L.Control.geocoder().addTo(map);
 
-  // Fetch moon phase
-  const moonTime = new Date(date).getTime() / 1000;
-  const moonRes = await fetch(`https://api.farmsense.net/v1/moonphases/?d=${moonTime}`);
-  const moonData = await moonRes.json();
-  const moon = moonData[0];
-
-  let emoji = "🌑";
-  if (moon.Phase.includes("First")) emoji = "🌓";
-  else if (moon.Phase.includes("Full")) emoji = "🌕";
-  else if (moon.Phase.includes("Last")) emoji = "🌗";
-  else if (moon.Phase.includes("Waxing")) emoji = "🌔";
-  else if (moon.Phase.includes("Waning")) emoji = "🌖";
-
-  document.getElementById("moon").innerHTML = `
-    ${emoji} <strong>${moon.Phase}</strong><br>
-    Illumination: ${Math.round(moon.Illumination * 100)}%
-  `;
-
-  // Weather
-  const weatherRes = await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${date}&end_date=${date}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=auto`);
-  const w = await weatherRes.json();
-  const d = w.daily;
-
-  document.getElementById("weather").innerHTML = `
-    Min Temp: ${d.temperature_2m_min[0]}°C<br>
-    Max Temp: ${d.temperature_2m_max[0]}°C<br>
-    Rain: ${d.precipitation_sum[0]} mm
-  `;
-
-  document.getElementById("resultCard").classList.remove("hidden");
+map.on('click', e => {
+  if (marker) marker.remove();
+  marker = L.marker(e.latlng).addTo(map);
+  setCoords(e.latlng.lat, e.latlng.lng);
 });
+
+map.on('geocoder_showresult', ev => {
+  if (marker) marker.remove();
+  marker = L.marker(ev.result.center).addTo(map);
+  setCoords(ev.result.center.lat, ev.result.center.lng);
+});
+
+function setCoords(lat, lon) {
+  document.getElementById('lat').innerText = lat.toFixed(4);
+  document.getElementById('lon').innerText = lon.toFixed(4);
+  window.selectedLat = lat.toFixed(4);
+  window.selectedLon = lon.toFixed(4);
+}
+
+document.getElementById('goBtn').onclick = async () => {
+  const date = document.getElementById('dob').value;
+  const lat = window.selectedLat;
+  const lon = window.selectedLon;
+  if (!date || !lat || !lon) return alert('Pick date and location');
+
+  // Moon image via USNO cycle
+  const moonUrl = `https://api.usno.navy.mil/moon/phase?date=${date}&coords=${lat},${lon}`;
+  try {
+    document.getElementById('moonImg').src = moonUrl;
+  } catch {}
+
+  const moonRes = await fetch(`https://api.farmsense.net/v1/moonphases/?d=${new Date(date).getTime()/1000}`);
+  const moon = (await moonRes.json())[0];
+  document.getElementById('moonPhase').innerText = `${moon.Phase} (${Math.round(moon.Illumination*100)}%)`;
+
+  const w = await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${date}&end_date=${date}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=auto`)
+    .then(r => r.json());
+  const d = w.daily;
+  document.getElementById('weather').innerText = `🌡️ ${d.temperature_2m_min[0]}–${d.temperature_2m_max[0]}°C | 🌧 ${d.precipitation_sum[0]} mm`;
+
+  document.getElementById('result').classList.remove('hidden');
+};
+
