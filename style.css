@@ -1,0 +1,19 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+#map {
+  height: 300px;
+  margin: 10px 0;
+}
+input, button {
+  padding: 10px;
+  font-size: 1em;
+}
+#results {
+  text-align: left;
+  margin-top: 20px;
+}
