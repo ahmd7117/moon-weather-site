@@ -1,45 +1,54 @@
 body {
+  margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-  color: #fff;
-  text-align: center;
-  padding: 30px;
+  background: linear-gradient(135deg, #1b1f32, #282c3d);
+  color: #eee;
 }
-
 .container {
   max-width: 500px;
   margin: auto;
-  background: #ffffff10;
   padding: 20px;
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 10px #00000050;
 }
-
-input, select, button {
+h1 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+label, input, button {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 6px;
-  font-size: 1em;
+  display: block;
+  margin: .5em 0;
 }
-
+#map { height: 200px; border-radius: 8px; margin-bottom: 10px; }
+.coords {
+  display: flex;
+  justify-content: space-between;
+}
 button {
-  background-color: #ffd700;
+  background: #ffa500;
+  border: none;
   color: #333;
-  font-weight: bold;
+  padding: .8em;
+  font-size: 1em;
+  border-radius: 6px;
   cursor: pointer;
 }
+button:hover { background: #ffb733; }
 
-#resultCard {
+#result {
+  background: #ffffff10;
   margin-top: 20px;
-  text-align: left;
-  background: #ffffff15;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
 }
-
-.hidden {
-  display: none;
+#moonImg {
+  width: 120px;
+  height: 120px;
+  margin-right: 15px;
 }
+.info { flex: 1; }
+.info h2 {
+  margin: 0;
+}
+.hidden { display: none; }
