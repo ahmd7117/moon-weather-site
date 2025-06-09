@@ -2,25 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Moon & Weather on Your Birth Date</title>
+  <title>My Birth Sky 🌙</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
-  <h1>🌙 What was the Moon like when you were born?</h1>
-  <p>Select your date of birth and click on the map!</p>
-  <input type="date" id="datePicker">
-  
-  <div id="map"></div>
-  <p><strong>Lat:</strong> <span id="lat"></span>, <strong>Lon:</strong> <span id="lon"></span></p>
-  <button id="checkBtn">Show Moon & Weather</button>
+  <div class="container">
+    <h1>🌙 What Was in the Sky When You Were Born?</h1>
 
-  <div id="results">
-    <h2>🌕 Moon Phase</h2>
-    <p id="moonPhase">–</p>
-    <h2>🌤️ Weather</h2>
-    <p id="weather">–</p>
+    <label for="dob">📅 Date of Birth:</label>
+    <input type="date" id="dob">
+
+    <label for="location">🌍 Select Location:</label>
+    <select id="location">
+      <option value="31.5,74.3">Lahore, Pakistan</option>
+      <option value="28.6,77.2">Delhi, India</option>
+      <option value="40.7,-74.0">New York, USA</option>
+      <option value="51.5,-0.1">London, UK</option>
+      <option value="35.6,139.6">Tokyo, Japan</option>
+    </select>
+
+    <button id="fetchData">🔎 Show Moon & Weather</button>
+
+    <div id="resultCard" class="hidden">
+      <h2>🌕 Moon Phase</h2>
+      <p id="moon"></p>
+      <h2>☀️ Weather on That Day</h2>
+      <p id="weather"></p>
+    </div>
   </div>
 
   <script src="script.js"></script>
