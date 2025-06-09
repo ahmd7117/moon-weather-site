@@ -1,19 +1,45 @@
 body {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #fff;
   text-align: center;
+  padding: 30px;
 }
-#map {
-  height: 300px;
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: #ffffff10;
+  padding: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px #00000050;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 12px;
   margin: 10px 0;
-}
-input, button {
-  padding: 10px;
+  border: none;
+  border-radius: 6px;
   font-size: 1em;
 }
-#results {
-  text-align: left;
+
+button {
+  background-color: #ffd700;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#resultCard {
   margin-top: 20px;
+  text-align: left;
+  background: #ffffff15;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none;
 }
